@@ -23,7 +23,6 @@ function OfferNotLoggedPage() : JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -218,7 +217,6 @@ function OfferNotLoggedPage() : JSX.Element {
                   <p className="place-card__type">Room</p>
                 </div>
               </article>
-
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
@@ -252,7 +250,6 @@ function OfferNotLoggedPage() : JSX.Element {
                   <p className="place-card__type">Apartment</p>
                 </div>
               </article>
-
               <article className="near-places__card place-card">
                 <div className="place-card__mark">
                   <span>Premium</span>
