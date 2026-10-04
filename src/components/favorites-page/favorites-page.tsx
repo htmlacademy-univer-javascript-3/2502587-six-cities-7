@@ -29,7 +29,6 @@ function FavoritesPage() : JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -82,7 +81,6 @@ function FavoritesPage() : JSX.Element {
                       <p className="place-card__type">Apartment</p>
                     </div>
                   </article>
-
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <a href="#">
@@ -120,7 +118,6 @@ function FavoritesPage() : JSX.Element {
                   </article>
                 </div>
               </li>
-
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">

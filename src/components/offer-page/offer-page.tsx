@@ -29,7 +29,6 @@ function OfferPage() : JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -193,7 +192,6 @@ function OfferPage() : JSX.Element {
                         <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
-
                     <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars"
                       type="radio"
                     />
@@ -202,7 +200,6 @@ function OfferPage() : JSX.Element {
                         <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
-
                     <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
                       type="radio"
                     />
@@ -211,7 +208,6 @@ function OfferPage() : JSX.Element {
                         <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
-
                     <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
                       type="radio"
                     />
@@ -220,7 +216,6 @@ function OfferPage() : JSX.Element {
                         <use xlinkHref="#icon-star"></use>
                       </svg>
                     </label>
-
                     <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
                       type="radio"
                     />
@@ -284,7 +279,6 @@ function OfferPage() : JSX.Element {
                   <p className="place-card__type">Room</p>
                 </div>
               </article>
-
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
@@ -318,7 +312,6 @@ function OfferPage() : JSX.Element {
                   <p className="place-card__type">Apartment</p>
                 </div>
               </article>
-
               <article className="near-places__card place-card">
                 <div className="place-card__mark">
                   <span>Premium</span>
