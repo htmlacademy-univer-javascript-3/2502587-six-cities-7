@@ -9,6 +9,8 @@ export type City = {
   location: Location;
 };
 
+export type Rating = 1 | 2 | 3 | 4 | 5;
+
 export type Offer = {
   id: string;
   title: string;
@@ -18,6 +20,20 @@ export type Offer = {
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
-  rating: number;
+  rating: Rating;
   previewImage: string;
+};
+
+export type User = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type Review = {
+  id: string;
+  date: string;
+  user: User;
+  comment: string;
+  rating: Rating;
 };

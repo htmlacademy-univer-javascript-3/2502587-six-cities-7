@@ -1,21 +1,27 @@
-import { Link, generatePath } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+import { getOfferUrl } from '../../const';
 import type { Offer } from '../../types';
 
 type PlaceCardProps = {
   offer: Offer;
+  variant?: 'cities' | 'near-places' | 'favorites';
   isActive?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 };
 
-function PlaceCard({offer, isActive = false, onMouseEnter, onMouseLeave,}: PlaceCardProps) : JSX.Element {
+function PlaceCard({offer, variant = 'cities', isActive = false, onMouseEnter, onMouseLeave,}: PlaceCardProps) : JSX.Element {
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-  const offerUrl = generatePath(AppRoute.Offer, { id });
+  const offerUrl = getOfferUrl(id);
+
+  const cardClass = `${variant}__card place-card`;
+  const imageWrapperClass = `${variant}__image-wrapper place-card__image-wrapper`;
+  const imageWidth = variant === 'favorites' ? 150 : 260;
+  const imageHeight = variant === 'favorites' ? 110 : 200;
 
   return (
     <article
-      className={`cities__card place-card ${isActive ? 'place-card--active' : ''}`}
+      className={`${cardClass} ${isActive ? 'place-card--active' : ''}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -24,9 +30,9 @@ function PlaceCard({offer, isActive = false, onMouseEnter, onMouseLeave,}: Place
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageWrapperClass}>
         <Link to={offerUrl}>
-          <img className="place-card__image" src={previewImage} width="260" height="200"
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeight}
             alt="Place image"
           />
         </Link>

@@ -1,7 +1,7 @@
-import PlaceCard from '../place-card/place-card';
-import type { Offer } from '../../types';
 import { Link } from 'react-router-dom';
+import PlaceCard from '../place-card/place-card';
 import { AppRoute } from '../../const';
+import type { Offer } from '../../types';
 
 type FavoritesPageProps = {
   offers: Offer[];
@@ -68,7 +68,7 @@ function FavoritesPage({ offers }: FavoritesPageProps) : JSX.Element {
                   </div>
                   <div className="favorites__places">
                     {cityOffers.map((offer) => (
-                      <PlaceCard key={offer.id} offer={offer} />
+                      <PlaceCard key={offer.id} offer={offer} variant="favorites"/>
                     ))}
                   </div>
                 </li>

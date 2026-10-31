@@ -1,5 +1,5 @@
-import MainPage from '../main-page/main-page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainPage from '../main-page/main-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
