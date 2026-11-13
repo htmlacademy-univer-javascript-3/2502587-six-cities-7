@@ -5,13 +5,13 @@ import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
 import SortingOptions from '../sorting-options/sorting-options';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { changeCity } from '../../store/reducer';
+import { changeCity, logout } from '../../store/reducer';
 import { AppRoute, CITIES } from '../../const';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const { city, offers, sortType } = useAppSelector((state) => state);
+  const { city, offers, sortType, authorizationStatus, user } = useAppSelector((state) => state);
   const filteredOffers = offers.filter((offer) => offer.city.name === city.name);
   const sortedOffers = [...filteredOffers].sort((a, b) => {
     switch (sortType) {
@@ -27,6 +27,11 @@ function MainPage(): JSX.Element {
     }
   });
 
+  const handleLogoutClick = () => {
+    localStorage.removeItem('six-cities-token');
+    dispatch(logout());
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -39,19 +44,33 @@ function MainPage(): JSX.Element {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
+                {authorizationStatus === 'AUTH' ? (
+                  <>
+                    <li className="header__nav-item user">
+                      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                          {user?.avatarUrl && (
+                            <img className="user__avatar" src={user.avatarUrl} alt="User avatar" width="20" height="20" />
+                          )}
+                        </div>
+                        <span className="header__user-name user__name">{user?.email}</span>
+                        <span className="header__favorite-count">3</span>
+                      </Link>
+                    </li>
+                    <li className="header__nav-item">
+                      <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogoutClick}>
+                        <span className="header__signout">Sign out</span>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <span className="header__login">Sign in</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </nav>
           </div>

@@ -1,1 +1,1 @@
-export { changeCity, fillOffers, changeSortType } from './reducer';
+export { changeCity, fillOffers, changeSortType, requireAuthorization } from './reducer';

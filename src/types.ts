@@ -39,3 +39,11 @@ export type ReviewData = {
 };
 
 export type SortType = 'popular' | 'price-low' | 'price-high' | 'rating';
+
+export type AuthStatus = 'UNKNOWN' | 'AUTH' | 'NO_AUTH';
+
+export type UserData = {
+  email: string;
+  avatarUrl: string;
+  isPro: boolean;
+};

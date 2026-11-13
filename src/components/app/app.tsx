@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchOffers } from '../../store/reducer';
+import { fetchOffers, checkAuth } from '../../store/reducer';
 import MainPage from '../main-page/main-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoginPage from '../login-page/login-page';
@@ -17,6 +17,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchOffers());
+    dispatch(checkAuth());
   }, [dispatch]);
 
   if (isOffersLoading) {
@@ -35,7 +36,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute isAuthorized={false}>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
