@@ -1,3 +1,4 @@
+import { useCallback, memo } from 'react';
 import PlaceCard from '../place-card/place-card';
 import type { Offer } from '../../types';
 
@@ -16,6 +17,18 @@ function OffersList({
   activeOfferId,
   onCardHover
 }: OffersListProps): JSX.Element {
+  const handleCardMouseEnter = useCallback((id: string) => {
+    if (onCardHover) {
+      onCardHover(id);
+    }
+  }, [onCardHover]);
+
+  const handleCardMouseLeave = useCallback(() => {
+    if (onCardHover) {
+      onCardHover(null);
+    }
+  }, [onCardHover]);
+
   return (
     <div className={className}>
       {offers.map((offer) => (
@@ -24,12 +37,13 @@ function OffersList({
           offer={offer}
           variant={variant}
           isActive={offer.id === activeOfferId}
-          onMouseEnter={() => onCardHover?.(offer.id)}
-          onMouseLeave={() => onCardHover?.(null)}
+          onMouseEnter={handleCardMouseEnter}
+          onMouseLeave={handleCardMouseLeave}
         />
       ))}
     </div>
   );
 }
 
-export default OffersList;
+const MemoizedOffersList = memo(OffersList);
+export default MemoizedOffersList;

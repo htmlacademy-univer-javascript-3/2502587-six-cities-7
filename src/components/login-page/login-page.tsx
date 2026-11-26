@@ -1,13 +1,14 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Header from '../header/header';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { login } from '../../store/reducer';
+import { login } from '../../store/slices/user-slice';
 import { AppRoute } from '../../const';
 
 function LoginPage() : JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authError = useAppSelector((state) => state.authError);
+  const { authError } = useAppSelector((state) => state.user);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -37,17 +38,7 @@ function LoginPage() : JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Main}>
-                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

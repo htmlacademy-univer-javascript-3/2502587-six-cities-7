@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { getOfferUrl } from '../../const';
@@ -7,7 +8,7 @@ type PlaceCardProps = {
   offer: Offer;
   variant?: 'cities' | 'near-places' | 'favorites';
   isActive?: boolean;
-  onMouseEnter?: () => void;
+  onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
 };
 
@@ -23,7 +24,7 @@ function PlaceCard({offer, variant = 'cities', isActive = false, onMouseEnter, o
   return (
     <article
       className={classNames(cardClass, { 'place-card--active': isActive })}
-      onMouseEnter={onMouseEnter}
+      onMouseEnter={() => onMouseEnter?.(id)}
       onMouseLeave={onMouseLeave}
     >
       {isPremium && (
@@ -71,4 +72,5 @@ function PlaceCard({offer, variant = 'cities', isActive = false, onMouseEnter, o
   );
 }
 
-export default PlaceCard;
+const MemoizedPlaceCard = memo(PlaceCard);
+export default MemoizedPlaceCard;

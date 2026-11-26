@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import { useParams, Navigate } from 'react-router-dom';
+import type { RootState } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchOfferDetails, fetchNearbyOffers, fetchReviews, resetOfferState } from '../../store/reducer';
+import { fetchOfferDetails, fetchNearbyOffers, resetOfferState } from '../../store/slices/offers-slice';
+import { fetchReviews } from '../../store/slices/reviews-slice';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import Header from '../header/header';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import OffersList from '../offers-list/offers-list';
@@ -18,12 +21,13 @@ function OfferPage() : JSX.Element {
   const {
     offerDetails,
     nearbyOffers,
-    reviews,
     isOfferLoading,
-    authorizationStatus,
     isOfferNotFound,
     currentOfferId,
-  } = useAppSelector((state) => state);
+  } = useAppSelector((state: RootState) => state.offers);
+
+  const { reviews } = useAppSelector((state) => state.reviews);
+  const { authorizationStatus } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     if (id) {
@@ -33,6 +37,8 @@ function OfferPage() : JSX.Element {
       dispatch(fetchReviews(id));
     }
   }, [id, dispatch]);
+
+  const slicedNearbyOffers = useMemo(() => nearbyOffers.slice(0, 3), [nearbyOffers]);
 
   if (id !== currentOfferId || isOfferLoading) {
     return <Spinner />;
@@ -46,43 +52,14 @@ function OfferPage() : JSX.Element {
     return <Spinner />;
   }
 
-  const slicedNearbyOffers = nearbyOffers.slice(0, 3);
-
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Main}>
-                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerDetails.images.map((image) => (
+              {offerDetails.images.map((image: string) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img className="offer__image" src={image} alt="Photo studio"/>
                 </div>
@@ -132,7 +109,7 @@ function OfferPage() : JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offerDetails.goods.map((good) => (
+                  {offerDetails.goods.map((good: string) => (
                     <li className="offer__inside-item" key={good}>
                       {good}
                     </li>
@@ -162,7 +139,7 @@ function OfferPage() : JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <ReviewsList reviews={reviews} />
-                {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={id} />}
+                {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerDetails.id} />}
               </section>
             </div>
           </div>

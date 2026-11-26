@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import L from 'leaflet';
 import type { Offer, City } from '../../types';
 import { ICON_SIZE, ICON_ANCHOR } from '../../const';
@@ -87,4 +87,5 @@ function Map({ offers, city, selectedOfferId, className = 'cities__map' }: MapPr
   return <div className={`map ${className}`} ref={mapRef} style={{ height: '100%' }} />;
 }
 
-export default Map;
+const MemoizedMap = memo(Map);
+export default MemoizedMap;

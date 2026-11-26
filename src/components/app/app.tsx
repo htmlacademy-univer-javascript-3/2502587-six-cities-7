@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchOffers, checkAuth } from '../../store/reducer';
+import { fetchOffers } from '../../store/slices/offers-slice';
+import { checkAuth } from '../../store/slices/user-slice';
 import MainPage from '../main-page/main-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoginPage from '../login-page/login-page';
@@ -13,7 +14,7 @@ import { AppRoute } from '../../const';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { isOffersLoading, offersError } = useAppSelector((state) => state);
+  const { isOffersLoading, offersError } = useAppSelector((state) => state.offers);
 
   useEffect(() => {
     dispatch(fetchOffers());

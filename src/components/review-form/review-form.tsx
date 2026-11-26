@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, Fragment, type FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { postReview } from '../../store/reducer';
+import { postReview } from '../../store/slices/reviews-slice';
 import type { Rating } from '../../types';
 import { RATING_OPTIONS } from '../../const';
 
@@ -10,7 +10,8 @@ type ReviewFormProps = {
 
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const isPosting = useAppSelector((state) => state.isReviewsLoading);
+  const { isReviewsLoading: isPosting } = useAppSelector((state) => state.reviews);
+  const { reviewError } = useAppSelector((state) => state.reviews);
 
   const [rating, setRating] = useState<Rating | 0>(0);
   const [review, setReview] = useState('');
@@ -87,6 +88,13 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
+
+        {reviewError && (
+          <p className="reviews__error">
+            {reviewError}
+          </p>
+        )}
+
         <button
           className="reviews__submit form__submit button"
           type="submit"

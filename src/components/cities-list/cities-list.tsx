@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { AppRoute } from '../../const';
@@ -29,4 +30,5 @@ function CitiesList({ cities, currentCity, onCityClick }: CitiesListProps): JSX.
   );
 }
 
-export default CitiesList;
+const MemoizedCitiesList = memo(CitiesList);
+export default MemoizedCitiesList;

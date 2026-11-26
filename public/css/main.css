@@ -17,6 +17,14 @@
   font-weight: bold;
 }
 
+.reviews__error {
+  width: 100%;
+  margin: 0 0 10px 0;
+  color: #ff4d4d;
+  font-size: 14px;
+  text-align: center;
+}
+
 .spinner {
   display: flex;
   justify-content: center;

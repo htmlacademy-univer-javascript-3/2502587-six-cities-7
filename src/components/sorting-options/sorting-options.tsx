@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import classNames from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { changeSortType } from '../../store/reducer';
+import { changeSortType } from '../../store/slices/offers-slice';
 import { SORT_TYPES } from '../../const';
 import type { SortType } from '../../types';
 
 function SortingOptions(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const currentSort = useAppSelector((state) => state.sortType);
+  const currentSort = useAppSelector((state) => state.offers.sortType) ;
 
   const handleSortClick = (type: SortType) => {
     dispatch(changeSortType(type));
@@ -51,4 +51,5 @@ function SortingOptions(): JSX.Element {
   );
 }
 
-export default SortingOptions;
+const MemoizedSortingOptions = memo(SortingOptions);
+export default MemoizedSortingOptions;
